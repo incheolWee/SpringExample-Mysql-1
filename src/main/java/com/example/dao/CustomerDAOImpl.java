@@ -7,11 +7,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.example.entity.Customer;
+import com.example.dao.CustomerDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import net.javaguides.springmvc.entity.Customer;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -20,33 +22,33 @@ public class CustomerDAOImpl implements CustomerDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public List <Customer> getCustomers(){
+    public List < Customer > getCustomers() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery <Customer> cq = cb.createQuery(Customer.class);
-        Root< Customer > root = cq.from(Customer.class);
+        CriteriaQuery < Customer > cq = cb.createQuery(Customer.class);
+        Root < Customer > root = cq.from(Customer.class);
         cq.select(root);
         Query query = session.createQuery(cq);
         return query.getResultList();
     }
 
     @Override
-    public void deleteCustomer(int id){
+    public void deleteCustomer(int id) {
         Session session = sessionFactory.getCurrentSession();
         Customer book = session.byId(Customer.class).load(id);
         session.delete(book);
     }
 
     @Override
-    public void saveCustomer(Customer theCustomer){
+    public void saveCustomer(Customer theCustomer) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(theCustomer);
     }
 
     @Override
-    public Customer getCustomer(int theId){
+    public Customer getCustomer(int theId) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Customer theCustomer = currentSession.get(Customer.class,theId);
+        Customer theCustomer = currentSession.get(Customer.class, theId);
         return theCustomer;
     }
 }

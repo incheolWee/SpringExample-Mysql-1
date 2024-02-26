@@ -1,13 +1,14 @@
 package com.example.service;
 
+import java.util.List;
 
 import com.example.dao.CustomerDAO;
-import com.example.entity.Customer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import net.javaguides.springmvc.entity.Customer;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -17,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public List<Customer> getCustomers() {
+    public List < Customer > getCustomers() {
         return customerDAO.getCustomers();
     }
 
